@@ -1,19 +1,19 @@
 from pyexpat import model
 from tkinter.tix import Tree
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from store.managers.auth_managers import UserManager
+ 
 
 
 
-
-class User(AbstractBaseUser):
+class User(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(max_length=150,unique=True)
     contact_no = models.CharField(max_length=15,blank=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-
+    is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
     objects = UserManager()
@@ -53,5 +53,4 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.city}" if self.city else f"{self.user.email}"
 
-    
     
