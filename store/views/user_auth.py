@@ -7,10 +7,10 @@ from rest_framework import viewsets
 from store.models.auth import User
 
 class UserLoginApiView(generics.GenericAPIView):
-    # serializer = UserLoginSerializer
+    serializer_class = UserLoginSerializer
     def post(self,request):
         
-        serializer = UserLoginSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.validated_data['user']
             resp = {
@@ -20,11 +20,11 @@ class UserLoginApiView(generics.GenericAPIView):
         
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class UserRegisterApiView(generics.GenericAPIView):
-    # serializer = UserSerializer
+    serializer_class = UserSerializer
 
     def post(self,request):
         print(request.data)
-        serializer = UserSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
             return Response()
@@ -33,4 +33,12 @@ class UserRegisterApiView(generics.GenericAPIView):
 # class UserAPIViewsets(viewsets.ModelViewSet):
 #     serializer = UserSerializer
 #     queryset = User.objects.all()
+
+class UserAPIView(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+    
+
 
