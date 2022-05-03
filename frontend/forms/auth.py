@@ -1,3 +1,4 @@
+from distutils.log import error
 import imp
 from django import forms
 from store.models.auth import User
@@ -44,6 +45,31 @@ class UserRegisterForm(forms.ModelForm):
             "contact_no":forms.TextInput(attrs={'class':'form-control',"placeholder":"Enter Contact number"}),
         }
     
-    def clean(self,cleaned_data):
-        print(cleaned_data)
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+        contact_no = cleaned_data.get('contact_no')
+        
+        if len(password)<8:
+            errors = {
+                'password':['at least 8 charecters are required']
+            }
+        elif password.isdigit():
+            errors = {
+                'password':['only numeric values are not allowed']
+            }
+        elif len(contact_no) != 10:
+            errors = {
+                'contact_no':['10 digits most be required']
+            }
+        elif not contact_no:
+            errors = {
+                'contact_no':['only numeric values are allowed']
+            }
+        else:
+            return cleaned_data
+        
+        raise forms.ValidationError(errors)
+
     
