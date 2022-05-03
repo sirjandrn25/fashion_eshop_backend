@@ -2,7 +2,7 @@ from distutils.log import error
 import imp
 from django import forms
 from store.models.auth import User
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password,make_password
 
 
 
@@ -68,6 +68,7 @@ class UserRegisterForm(forms.ModelForm):
                 'contact_no':['only numeric values are allowed']
             }
         else:
+            cleaned_data['password'] = make_password(password)
             return cleaned_data
         
         raise forms.ValidationError(errors)
