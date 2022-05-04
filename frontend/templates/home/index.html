@@ -1,6 +1,74 @@
+
 {% extends 'base/layout.html' %}
+{% load static %}
+ {% block main_content %}
 
-{% block main_content %}
+<div class="container py-3">
 
-    
+    <!-- categories and advertisement start section  -->
+    <div class="cat_ad card p-3">
+      <div class="row" >
+        <div class="col-4">
+            <h3 class="text-secondary text-center">Fashion List</h3>
+            <div class="list-group">
+                
+               
+                <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+              </div>
+        </div>
+        <div class="col-8">
+            <div id="carouselExampleInterval" class="carousel slide p-2" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="10000" style="height:400px; object-fit:cover;">
+                    <img src="{% static 'images/cloth1.jpg' %}" class="d-block w-100"  alt="cloth1">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="2000"  style="height:400px; object-fit:cover;">
+                    <img src="{% static 'images/shoes1.jpg' %}" class="d-block w-100" alt="..." >
+                  </div>
+                  <div class="carousel-item"  style="height:400px; object-fit:cover;">
+                    <img src="{% static 'images/watch1.jpg' %}" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+      </div>
+    </div>
+  <!-- categories and advertisement end section -->
+
+  <!-- latest product section start -->
+    <div class="my-4 py-4">
+        <h3 class="my-3 text-primary">Latest Products</h3>
+
+        <div class="row">
+            <div class="col-3 mb-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static 'images/cloth1.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">
+                          <span class="d-block">Price : 2546</span>
+                      </p>
+                      
+                      <a href="#" class="btn btn-outline-warning btn-sm">view card</a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        
+
+    </div>
+  <!-- latest product end section  -->
+
+</div>
+
 {% endblock main_content %}

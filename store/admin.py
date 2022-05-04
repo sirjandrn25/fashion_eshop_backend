@@ -5,3 +5,7 @@ from store.models import *
 admin.site.register(User)
 admin.site.register(Profile)
 admin.site.register(Address)
+admin.site.register(Product)
+admin.site.register(Category)
+admin.site.register(Fashion)
+admin.site.register(Brand)

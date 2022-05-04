@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from frontend.forms.auth import *
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from django.contrib import messages
 
 def login_view(request):
@@ -42,3 +42,8 @@ def userRegisterView(request):
         }
 
     return render(request,"auth/register.html",context)
+
+
+def userLogout(request):
+    logout(request)
+    return redirect("index")

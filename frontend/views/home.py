@@ -1,10 +1,20 @@
 from django.shortcuts import render
+from store.models.product import *
+from store.models.product_utilities import *
 
 # Create your views here.
 
 def index(request):
-    print(request.user.is_authenticated)
-    return render(request,"home/index.html")
+    
+    fashions = Fashion.objects.all()
+    products = Product.objects.all()
+
+    context = {
+        'fashions':fashions,
+        'products':products
+    }
+
+    return render(request,"home/index.html",context)
 
 
 
