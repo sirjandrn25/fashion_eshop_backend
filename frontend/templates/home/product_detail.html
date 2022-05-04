@@ -23,7 +23,7 @@
                                         <label for="exampleFormControlInput1" class="form-label">Product Size</label>
                                         <select class="form-select" id="product_size" aria-label="Default select example">
                                             {% for size in sizes %}
-                                                <option value="{{size.size}}">{{size.size}}</option>
+                                                <option value="{{size.id}}">{{size.size}}</option>
                                             {% endfor %}
                                             
                                             
@@ -31,7 +31,7 @@
                                       </div>
                                       <div class="col mb-3">
                                         <label for="exampleFormControlInput2" class="form-label">Quantity</label>
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" id="size_stock" aria-label="Default select example">
                                             
                                             {% for qty in sizes.0.stock|size_stock_range %}
                                                 <option {{qty|contain_cart_qty}} >{{qty}}</option>
@@ -56,9 +56,40 @@
         
     </div>
     <script>
+        
         let product_size_select = document.getElementById("product_size");
+
+
         product_size_select.addEventListener("change",(e)=>{
-            console.log(e.target.value)
+            const current_host = window.location.host;
+            
+            const product_size_id = e.target.value;
+            const url = `http://${current_host}/product_size_stock/?product_size=${product_size_id}`;
+            fetch(url).then(resp=>resp.json()).then(json_resp=>{
+                const stock = json_resp.stock;
+                removeAllOptions();
+                addAllOptions(stock)
+                
+            }).catch(error=>{
+                console.log(error);
+            })
+            
         })
+
+        const removeAllOptions = ()=>{
+            const stock_select_box = document.getElementById('size_stock');
+            while(stock_select_box.options.length>0){
+                stock_select_box.remove(0);
+            }
+        }
+        const addAllOptions = (stock)=>{
+            let stock_select_box = document.getElementById('size_stock');
+            for (let i=1; i<=stock; i++){
+                let option = document.createElement('option');
+                option.value = i;
+                option.text = i;
+                stock_select_box.add(option);
+            }
+        }
     </script>
 {% endblock main_content %}
