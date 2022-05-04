@@ -1,0 +1,64 @@
+{% extends 'base/layout.html' %}
+{% load product_filter %}
+{% block main_content %}
+    <div class="container  py-3 my-5 ">
+      
+            <div class="row justify-content-center">
+                <div class="col-9 card p-3">
+                    <div class="row">
+                        <div class="col-5">
+                            <img src="{{product.thumbnail.url}}" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-7 p-3">
+                            <h2 class="text-secondary text-capitalize">{{product.title}}</h2>
+                            <p class="badge bg-warning">{{product.brand}}</p>
+                            <p>
+                                {{product.description}}
+                            </p>
+
+                            <hr>
+                            <form action="" class="p-4">
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Product Size</label>
+                                        <select class="form-select" id="product_size" aria-label="Default select example">
+                                            {% for size in sizes %}
+                                                <option value="{{size.size}}">{{size.size}}</option>
+                                            {% endfor %}
+                                            
+                                            
+                                          </select>
+                                      </div>
+                                      <div class="col mb-3">
+                                        <label for="exampleFormControlInput2" class="form-label">Quantity</label>
+                                        <select class="form-select" aria-label="Default select example">
+                                            
+                                            {% for qty in sizes.0.stock|size_stock_range %}
+                                                <option {{qty|contain_cart_qty}} >{{qty}}</option>
+                                            {% endfor %}
+                                           
+                                          </select>
+                                      </div>
+                                    
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary mx-2">Add Cart</button>
+                                <button class="btn btn-outline-warning">Buy Now</button>
+                                
+                                 
+                                
+                                
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+    <script>
+        let product_size_select = document.getElementById("product_size");
+        product_size_select.addEventListener("change",(e)=>{
+            console.log(e.target.value)
+        })
+    </script>
+{% endblock main_content %}

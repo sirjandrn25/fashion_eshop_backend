@@ -15,7 +15,7 @@ class Product(DateTimeTracker):
     title = models.CharField(max_length=150,unique=True)
     price = models.FloatField()
     is_available = models.BooleanField(default=False)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand,on_delete=models.CASCADE)
     thumbnail = models.ImageField(upload_to="products/")
