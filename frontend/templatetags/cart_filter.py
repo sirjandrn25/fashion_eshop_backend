@@ -1,0 +1,40 @@
+from itertools import product
+from django import template
+from store.models import ProductSize
+
+register = template.Library()
+
+def productSize_with_Qty(session_cart):
+
+    carts = [
+            {"product_size":ProductSize.objects.filter(id=key).first(),'qty':value} for key,value in session_cart.items() if ProductSize.objects.filter(id=key).first()
+    ]
+    return carts
+
+
+@register.filter(name="get_carts")
+def get_carts(session_cart):
+    carts = productSize_with_Qty(session_cart)
+    return carts
+
+@register.filter(name="total_price")
+def total_price(price,qty):
+    return price*qty
+
+
+@register.filter(name="total_amount")
+def total_amount(session_cart):
+    carts = productSize_with_Qty(session_cart)
+    
+    total = 0
+    for cart in carts:
+        total += cart['product_size'].product.price * cart['qty']
+    return total
+
+
+@register.filter(name="grand_total_amount")
+def grand_total_amount(total_products_amount):
+    tax = 0.13 * total_products_amount
+    discount = 0.3 * total_products_amount
+    delivery_charge = 100
+    return total_products_amount+ tax - discount + delivery_charge

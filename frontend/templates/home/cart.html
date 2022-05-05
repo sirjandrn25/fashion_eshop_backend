@@ -1,0 +1,103 @@
+{% extends 'base/layout.html' %} {% load static %}
+{% load cart_filter %}
+{% load product_filter %}
+ {% block main_content %}
+
+<div class="container my-5 py-5">
+    
+  <div class="row justify-content-center">
+
+    <div class="col-9 card p-3">
+      <h4 class="mb-4">Your Shopping Cart</h4>
+
+      {% for cart in request.session.carts|get_carts %}
+      <div class="row mb-2 mx-3" style="max-height: 380px; overflow-x: auto">
+
+        <!-- cart item row section start  -->
+        
+        <div class="col-5 d-flex align-items-center">
+          <img
+            src="{{cart.product_size.product.thumbnail.url}}"
+            style="height: 72px; width: 72px; object-fit: cover; margin-right: 20px"
+            alt=""
+            class="img-thumbnail"
+          />
+          <div>
+            <p style="margin: 0px" class="text-capitalize">{{cart.product_size.product.title}}</p>
+            <small class="text-muted text-uppercase">{{cart.product_size.size}}</small>
+          </div>
+        </div>
+        <div class="col-4 d-flex align-items-center">
+          <div class="input-group mb-3">
+              
+
+            <select class="form-select mx-3" aria-label="Default select example">
+                {% for stock in cart.product_size.stock|size_stock_range %}
+                    <option value="{{stock}}" {% if stock|add:"0" == cart.qty|add:"0" %} selected {% endif %} >{{stock}}</option>
+                {% endfor %}
+              
+              
+            </select>
+            <div>
+              <p style="margin: 0px">Rs. {{cart.product_size.product.price|total_price:cart.qty}}</p>
+              <small class="text-muted">Rs {{cart.product_size.product.price}}/ per item</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-3  d-flex align-items-center justify-content-center">
+          <a href="http://{{request.META.HTTP_HOST}}/cart/?product_size={{cart.product_size.id}}&qty=0" class="btn btn-outline-danger btn-sm mx-2">remove</a>
+          <a href="{% url 'product_detail' cart.product_size.product.title %}" class="btn btn-outline-secondary btn-sm">view </a>
+        </div>
+        <!-- cart items row section end -->
+      </div>
+      {% endfor %}
+      
+    </div>
+    <div class="col-3 card py-3 p-2">
+        <h4 class="mb-3">Total Calculation</h4>
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td>Total Amount :  </td>
+                    <td>Rs. {{request.session.carts|total_amount}}</td>
+                </tr>
+                <tr class="text-success">
+                    <td>Discount :</td>
+                    <td>30%</td>
+                </tr>
+                <tr class="text-danger">
+                    <td >
+                        Tax : 
+                    </td>
+                    <td>
+                        13%
+                    </td>
+                </tr>
+                <tr class="text-warning">
+                    <td>Delivery Charge : </td>
+                    <td>Rs. 100</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><hr></td><td><hr></td>
+                </tr>
+                <tr class="text-primary h5">
+                    <td>
+                        Grand Total
+                    </td>
+                    <td>Rs. {{request.session.carts|total_amount|grand_total_amount}}</td>
+                </tr>
+            </tfoot>
+            
+            
+
+        </table>
+        <div class="mt-2">
+            <a href="#" class="btn btn-outline-success mx-2">Check Out</a>
+            <a href="#" class="btn btn-outline-secondary ">Back To Shop</a>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock main_content %}

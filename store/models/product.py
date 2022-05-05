@@ -34,8 +34,8 @@ class ProductImages(DateTimeTracker):
 class ProductSize(models.Model):
     size = models.CharField(max_length=150)
     stock = models.IntegerField()
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
-
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='sizes')
+    
 
     def __str__(self):
         return f"{self.size} >> {self.product.title}"
