@@ -31,7 +31,7 @@
           <div class="input-group mb-3">
               
 
-            <select class="form-select mx-3" aria-label="Default select example">
+            <select class="form-select mx-3" id="{{cart.product_size.id}}" aria-label="Default select example">
                 {% for stock in cart.product_size.stock|size_stock_range %}
                     <option value="{{stock}}" {% if stock|add:"0" == cart.qty|add:"0" %} selected {% endif %} >{{stock}}</option>
                 {% endfor %}
@@ -100,4 +100,19 @@
     </div>
   </div>
 </div>
+
+<script>
+    const form_select = document.getElementsByClassName('form-select');
+    
+    for(let select of form_select){
+        
+        select.addEventListener('change',e=>{
+            const qty = e.target.value;
+            const product_size = e.target.id;
+            const url = `${window.location.href}?product_size=${product_size}&qty=${qty}`;
+            window.location.href = url;
+
+        })
+    }
+</script>
 {% endblock main_content %}
