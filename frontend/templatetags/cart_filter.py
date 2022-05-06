@@ -24,6 +24,7 @@ def total_price(price,qty):
 
 @register.filter(name="total_amount")
 def total_amount(session_cart):
+    
     carts = productSize_with_Qty(session_cart)
     
     total = 0

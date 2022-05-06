@@ -6,10 +6,9 @@
 <div class="container my-5 py-5">
     
   <div class="row justify-content-center">
-
     <div class="col-9 card p-3">
       <h4 class="mb-4">Your Shopping Cart</h4>
-
+      
       {% for cart in request.session.carts|get_carts %}
       <div class="row mb-2 mx-3" style="max-height: 380px; overflow-x: auto">
 
@@ -94,10 +93,10 @@
 
         </table>
         <div class="mt-2">
-            <a href="#" class="btn btn-outline-success mx-2">Check Out</a>
+            <a href="{% url 'checkout' %}" class="btn btn-outline-success mx-2">Check Out</a>
             <a href="#" class="btn btn-outline-secondary ">Back To Shop</a>
         </div>
-    </div>
+    </div> 
   </div>
 </div>
 

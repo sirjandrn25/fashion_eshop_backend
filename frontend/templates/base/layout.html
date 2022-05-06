@@ -28,11 +28,13 @@
                           </div>
                       </form>
                 </div>
-                {% if request.user.is_authenticated %}
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                      <a class="nav-link btn btn-outline-secondary btn-sm text-warning mx-2" aria-current="page" href="{% url 'cart' %}">carts</a>
-                    </li>
+                  <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary btn-sm text-warning mx-2" aria-current="page" href="{% url 'cart' %}">carts</a>
+                  </li>
+                {% if request.user.is_authenticated %}
+                
+                    
                     <li class="nav-item">
                       <a class="nav-link btn btn-outline-secondary btn-sm text-warning mx-2 " aria-current="page" href="#">orders</a>
                     </li>
@@ -47,20 +49,23 @@
                         </ul>
                       </li>  
                    
-                  </ul>
+                
                 
                 {% else %}
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                      
                         <li class="nav-item">
-                        <a class="nav-link btn btn-outline-secondary text-warning" aria-current="page" href="{% url 'user_login' %}">login/Register</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link active" target="_blank" aria-current="page" href="https://github.com/sirjandrn25/fashion_eshop_backend">Github Source -></a>
+                        <a class="nav-link btn btn-outline-secondary btn-sm text-warning" aria-current="page" href="{% url 'user_login' %}">login/Register</a>
                         </li>
                         
+                        
 
-                    </ul>
+                    
                 {% endif %}
+                <li class="nav-item">
+                  <a class="nav-link active" target="_blank" aria-current="page" href="https://github.com/sirjandrn25/fashion_eshop_backend">Github Source -></a>
+                  </li>
+              </ul>
                 
                 
               </div>
