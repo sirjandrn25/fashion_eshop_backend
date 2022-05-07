@@ -2,7 +2,7 @@ import imp
 from django.urls import path
 
 from frontend.views.cart import cartView
-from frontend.views.checkout import checkout_view
+from frontend.views.checkout import CheckoutView
 from .views.home import *
 from .views.user_auth import *
 
@@ -15,5 +15,5 @@ urlpatterns = [
     path("product/<str:product_title>/",product_detail,name="product_detail"),
     path("product_size_stock/",product_size_stock,name="product_size_stock"),
     path("cart/",cartView,name="cart"),
-    path("checkout/",checkout_view,name="checkout"),
+    path("checkout/",CheckoutView.as_view(),name="checkout"),
 ]

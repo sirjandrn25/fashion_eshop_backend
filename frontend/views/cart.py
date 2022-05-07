@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from frontend.decorators import custom_login_required
 
 
-@custom_login_required(login_url="/user_login")
+
 def cartView(request):
     carts = request.session.get('carts') 
     print(request.session.keys())

@@ -1,8 +1,135 @@
-{% extends 'base/layout.html' %}
+{% extends 'base/layout.html' %} {% block main_content %}
 
-{% block main_content %}
+<div class="container my-5 py-2">
+  <div class="row">
+    <div class="col-8 p-3 card">
+      <h4>Check Out Page</h4>
+      <form method="post" action="" class="mt-3 p-3">
+        {% csrf_token %}
+        <div class="mb-3 row">
+          <div class="col">
+            {{form.firstName.label_tag}}
+            {{form.firstName}}
+            <!-- <label for="id_firstName" class="form-label">First Name</label> -->
+            <!-- <input type="text" id="id_firstName" class="form-control" placeholder="First Name" required /> -->
+          </div>
 
-    <div class="container my-5 py-3">
-        
+          <div class="col">
+            {{form.lastName.label_tag}}
+            {{form.lastName}}
+            <!-- <label for="id_lastName" class="form-label">Last Name</label> -->
+            <!-- <input type="text" class="form-control" placeholder="Last Name" required /> -->
+          </div>
+        </div>
+        <div class="mb-5 row">
+            <div class="col">
+              {{form.contact_no.label_tag}}
+              {{form.contact_no}}
+
+              {% for error in form.contact_no.errors %}
+                <small class="text-danger">{{error}}</small>
+              {% endfor %}
+              <!-- <label for="id_firstName" class="form-label">Phone No </label>
+              <input type="text" id="id_firstName" class="form-control" placeholder="9845628469" required /> -->
+            </div>
+  
+            <div class="col">
+              {{form.payment_way.label_tag}}
+              {{form.payment_way}}
+              <!-- <label for="id_lastName" class="form-label">Payment Way</label>
+              <select class="form-select" aria-label="Default select example" required>
+                <option selected>choose payment method</option>
+                <option value="pay_by_cash">Pay By Cash</option>
+                <option value="khalti">Khalti</option>
+                <option value="e-sewa">E-sewa</option>
+              </select> -->
+            </div>
+          </div>
+          
+          <h4>Shipping Address</h4>
+          <hr>
+          <div class="mb-3 row">
+            <div class="col-7">
+              {{form.address.label_tag}}
+              {{form.address}}
+                <!-- <label for="id_address" class="form-label">Address</label>
+                <input type="text" class="form-control" placeholder="Enter your address" required> -->
+            </div>
+            <div class="col-5">
+              {{form.city.label_tag}}
+              {{form.city}}
+                <!-- <label for="id_city" class="form-label">City</label>
+                <input type="text" class="form-control" placeholder="Enter your city" required> -->
+            </div>
+
+          </div>
+          <div class="mb-3 row">
+              <div class="col-4">
+                {{form.provinance_no.label_tag}}
+                {{form.provinance_no}}
+                  <!-- <label for="id_provinance_number" class="form-label">Provinance Number</label>
+                  <input type="text" class="form-control" placeholder="Enter provinance number"> -->
+              </div>
+              <div class="col-4">
+                {{form.street.label_tag}}
+                {{form.street}}
+                  <!-- <label for="id_provinance_number" class="form-label">Street</label>
+                  <input type="text" class="form-control" placeholder="Enter Street"> -->
+              </div>
+              <div class="col-4">
+                {{form.zip_code.label_tag}}
+                {{form.zip_code}}
+                  <!-- <label for="id_provinance_number" class="form-label">Zip Code</label>
+                  <input type="text" class="form-control" placeholder="Enter Zip Code"> -->
+              </div>
+          </div>
+          <div class="form-check mb-3">
+            {{form.save_delivery_address}}
+            {{form.save_delivery_address.label_tag}}
+            <!-- <input class="form-check-input" type="checkbox" value="" id="save_address">
+            <label class="form-check-label" for="save_address">
+              Save this address
+            </label> -->
+          </div>
+          <div class="d-flex justify-content-end">
+              <button  class="btn btn-outline-secondary">Cancel</button>
+            <button type="submit" class="btn btn-outline-success mx-3">Continue</button>
+          </div>
+      </form>
     </div>
+    <div class="col-4 p-3">
+      <h4>Summary</h4>
+      <div>
+        <table class="table table-borderless text-secondary">
+          <tr>
+            <td>Total Amount</td>
+            <td>Rs. 245334</td>
+          </tr>
+          <tr class="text-success">
+            <td>Discount</td>
+            <td>30%</td>
+          </tr>
+          <tr class="text-danger">
+            <td>Tax</td>
+            <td>13%</td>
+          </tr>
+          <tr class="text-warning">
+            <td>Delivery Charge</td>
+            <td>Rs. 100</td>
+          </tr>
+          <tfoot>
+            <tr>
+              <td><hr /></td>
+              <td><hr /></td>
+            </tr>
+            <tr class="text-primary h5">
+              <td>Grand Total</td>
+              <td>Rs. 452656</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock main_content %}
