@@ -4,11 +4,14 @@ from store.models import *
 # Register your models here.
 admin.site.register(User)
 admin.site.register(Profile)
-admin.site.register(Address)
+# admin.site.register(Address)
 admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(Fashion)
 admin.site.register(Brand)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(DeliveryAddress)
 # admin.site.register(ProductSize)
 
 

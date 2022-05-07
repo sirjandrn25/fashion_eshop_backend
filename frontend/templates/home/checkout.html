@@ -2,8 +2,23 @@
 
 <div class="container my-5 py-2">
   <div class="row">
-    <div class="col-8 p-3 card">
-      <h4>Check Out Page</h4>
+    <div class="col-8">
+      <div class="d-flex p-4 flex-row align-items-center justify-content-between card mb-3">
+        {% if request.user.is_authenticated %}
+          <h4>Do you want to buy guest account?</h4>
+          
+            <button class="btn btn-outline-secondary">Logout</button>
+          
+        {% else %}
+        <h5>This is Guest account. Do you want to buy your account?</h5>
+        <div>
+          <button class="btn btn-outline-primary mx-2">Login</button>
+          <button class="btn btn-outline-success">Register</button>
+        </div>
+        {% endif %}
+      </div>
+      <div class="card p-2">
+        <h4 class="mt-2">Check Out Page</h4>
       <form method="post" action="" class="mt-3 p-3">
         {% csrf_token %}
         <div class="mb-3 row">
@@ -84,9 +99,10 @@
               </div>
           </div>
           <div class="form-check mb-3">
-            {{form.save_delivery_address}}
+            
             {{form.save_delivery_address.label_tag}}
-            <!-- <input class="form-check-input" type="checkbox" value="" id="save_address">
+            {{form.save_delivery_address}}
+            <!-- <input class="form-check-input" name="save_delivery_address" type="checkbox" value="" checked id="save_address">
             <label class="form-check-label" for="save_address">
               Save this address
             </label> -->
@@ -96,6 +112,7 @@
             <button type="submit" class="btn btn-outline-success mx-3">Continue</button>
           </div>
       </form>
+      </div>
     </div>
     <div class="col-4 p-3">
       <h4>Summary</h4>

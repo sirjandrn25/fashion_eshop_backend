@@ -32,7 +32,7 @@ class CheckoutForm(forms.Form):
     address = forms.CharField(max_length=150,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your address'}))
     provinance_no = forms.ChoiceField(choices=provinance_choices,widget=forms.Select(attrs={'class':'form-select'}))
     city = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your city name'}))
-    zip_code = forms.CharField(max_length=50,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your zip code'}))
+    zip_code = forms.CharField(max_length=50,required=False,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your zip code'}))
     street = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your street'}))
 
     save_delivery_address = forms.BooleanField(initial=True, required=False,widget=forms.CheckboxInput(attrs={'class':'form-check-input','checked':True}))

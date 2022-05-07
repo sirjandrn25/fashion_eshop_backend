@@ -37,21 +37,24 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     avatar = models.ImageField(upload_to="avatar/",blank=True,null=True)
 
+    address = models.CharField(max_length=200)
+
     def __str__(self):
         return f"{self.firstName} {self.lastName}" if self.firstName and self.lastName else f"{self.user.email}"
 
 
-class Address(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
-    provinance_no = models.CharField(max_length=5,default=1)
-    city = models.CharField(max_length=150,blank=True)
-    street = models.CharField(max_length=150,blank=True)
-    zipcode = models.CharField(max_length=100,blank=True)
+# class Address(models.Model):
+#     user = models.OneToOneField(User,on_delete=models.CASCADE)
+#     provinance_no = models.CharField(max_length=5,default=1)
+#     city = models.CharField(max_length=150,blank=True)
+#     street = models.CharField(max_length=150,blank=True)
+#     zip_code = models.CharField(max_length=100,blank=True)
+#     address = models.CharField(max_length=150)
 
-    # geo_lat = models.FloatField(null=True)
-    # geo_long = models.FloatField(null=True)
+#     # geo_lat = models.FloatField(null=True)
+#     # geo_long = models.FloatField(null=True)
 
-    def __str__(self):
-        return f"{self.city}" if self.city else f"{self.user.email}"
+#     def __str__(self):
+#         return f"{self.city}" if self.city else f"{self.user.email}"
 
     
