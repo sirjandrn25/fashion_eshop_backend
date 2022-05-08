@@ -1,0 +1,87 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+{% load cart_filter %}
+{% block main_content %}
+    <div class="container my-4 p-3">
+        
+        <div class="row p-3 justify-content-center d-flex">
+            {% for order in orders %}
+                <div class="col-lg-10 card p-3 mb-3">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <!-- order id and order date  -->
+                    <div>
+                        <span class="d-block">Order Id: {{order.orderId}} {{order|order_status}}</span>
+                        <span class="text-muted">Date : {{order.order_date}}</span>
+                    </div>
+                    <span>Payment Status :{% if order.is_paid %}
+                        <span class="badge bg-success"> paid</span>
+                        {% else %}
+                        <span class="badge bg-danger"> unpaid</span>
+                      
+                    {% endif %}</span>
+                    
+                        
+                        <button class="btn btn-outline-danger btn-sm mx-2">cancel order</button>
+                    
+                </div>
+                <div class="card-body row">
+                    <div class="col-4">
+                        <span class="text-muted order_body_head">Person Info</span>
+                        <div class="order_body_detail d-flex flex-column">
+                            <span class="text-capitalize" >Name : {{order.firstName}} {{order.lastName}}</span>
+                            <span>Contact No: {{order.contact_no}}</span>
+                        </div>
+                        
+                    </div>
+                    <div class="col-4">
+                        <span class="text-muted order_body_head">Delivery Address</span>
+                        <div class="order_body_detail d-flex flex-column">
+                            <span >{{order.address.address}}</span>
+                            <span>{{order.address.street}}</span>
+                            <span>{{order.address.city}}</span>
+                            <span>Provinance : {{order.address.provinance_no}}</span>
+                            <span>Zip Address: {{order.address.zip_code}}</span>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="col-4">
+                        <span class="text-muted order_body_head">Payment Detail</span>
+                        <div class="order_body_detail d-flex flex-column">
+                            <span  class="text-success">Payment Way : {{order.get_payment_way_display}} </span>
+                            <span>Delivery Charge : Rs. 100</span>
+                            <span>Tax : {{order.tax}}%</span>
+                            <span>Discount: {{order.discount}}%</span>
+                            <span class="text-secondary">Total Paid : Rs. {{order|total_paid}} </span>
+                            
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+                <div class="card-footer bg-white d-flex py-3">
+                    {% for order_item in order.items.all %}
+                    <div class="d-flex  mx-2" style="max-width: 400px;">
+                        <div class="position-relative" style="height: 120px; width: 120px; object-fit: cover;" >
+                            <img src="{{order_item.product.product.thumbnail.url}}" style="height: 120px; width: 120px; object-fit: cover;" alt="" class="img-thumbnail">
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                {{order_item.qty}}
+                              </span>
+                        </div>
+                        <div class="item-details d-flex p-2 flex-column">
+                            <span class="text-capitalize">{{order_item.product.product.title}}</span>
+                            <span>Rs. {{order_item.product.product.price|total_price:order_item.qty}}</span>
+                            
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                    
+    
+                </div>
+            </div>
+              
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main_content %}

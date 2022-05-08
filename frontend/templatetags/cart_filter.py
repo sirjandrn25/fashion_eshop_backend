@@ -1,6 +1,8 @@
+from cgitb import html
 from itertools import product
 from django import template
 from store.models import ProductSize
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -39,3 +41,26 @@ def grand_total_amount(total_products_amount):
     discount = 0.3 * total_products_amount
     delivery_charge = 100
     return total_products_amount+ tax - discount + delivery_charge
+
+@register.filter(name="total_paid")
+def total_paid(order):
+    total_amount = 0
+    for item in order.items.all():
+        total_amount += item.product.product.price*item.qty
+    
+    return total_amount
+
+
+    
+@register.filter(name="order_status")
+def order_status(order):
+    status = order.get_status_display()
+    
+    if status == "approve":
+        bc = "success"
+    elif status=="cancel":
+        bc = "danger"
+    else:
+        bc = "warning"
+
+    return mark_safe(f'<span class="badge bg-{bc}">{status}</span>')

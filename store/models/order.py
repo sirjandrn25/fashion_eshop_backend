@@ -4,21 +4,21 @@ from django.db import models
 import uuid
 from .auth import *
 from django.utils.translation import gettext_lazy as _
-
+import random
 def randomOrderId():
-    random_num = uuid.uuid4()
+    random_num = random.randrange(1000,20000)
     return str(random_num)
 
 
 
 class Order(models.Model):
     class OrderStatusChoices(models.TextChoices):
-        PENDING = 'P',_('Pending')
-        APPROVE = 'A',_('Approve')
-        CANCEL = 'C',_('Cancel')
+        PENDING = 'P',_('pending')
+        APPROVE = 'A',_('approve')
+        CANCEL = 'C',_('cancel')
     
     class PaymentChoices(models.TextChoices):
-        CASH = 'Cash',_('Pay By Cash')
+        CASH = 'COD',_('Cash On Delivery')
         KHALTI = 'Khalti',_('Khalti')
         ESEWA =   'Esewa',_('E-Sewa')
 
