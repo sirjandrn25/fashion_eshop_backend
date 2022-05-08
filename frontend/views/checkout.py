@@ -1,6 +1,6 @@
 
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from frontend.decorators import custom_login_required,IsAnyItemInCart
 from frontend.forms.checkout import CheckoutForm
 from django.views import View
@@ -58,14 +58,12 @@ class CheckoutView(View):
                     delivery_address = DeliveryAddress.objects.get(id=request.session['prev_order_address'])
                 except Exception as e:
                     print(e)
-
-
-            
             
             order = Order(firstName=firstName,lastName=lastName,contact_no=contact_no,payment_way=payment_way,user=request.user,address=delivery_address)
 
             order.save()
             Order.save_cart_items(order,request)
+            return redirect('order')
             # print(firstName,lastName,city,contact_no,payment_way,address,street,provinance_no,zip_code,save_delivery_address)
 
             
