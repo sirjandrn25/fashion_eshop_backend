@@ -10,7 +10,7 @@
       <div class="row" >
         <div class="col-3">
           
-            <h5 class="text-secondary">Categories >></h5>
+            <h5 class="text-white p-2 bg-secondary">Categories >></h5>
             <ul class="list-group list-group-flush" id="category_collapse">
             
               {% for fashion in fashions %}
@@ -19,9 +19,9 @@
                           <span>{{fashion.fashion_name}}</span>
                         </a>
                         <ul class="dropdown-menu p-2" aria-labelledby="dropdown{{fashion.id}}">
-                            <li><a href="/products/?fashion={{fashion.fashion_name}}" class="dropdown-item dropdown-link">All</a></li>
+                            <li><a href="/products/?fashion={{fashion.fashion_name}}" class="dropdown-item">All</a></li>
                             {% for category in fashion.categories.all %}
-                              <li><a class="dropdown-item dropdown-link" href="/products/?fashion={{fashion.fashion_name}}&category={{category.category_name}}">{{category.category_name}}</a></li>
+                              <li><a class="dropdown-item" href="/products/?fashion={{fashion.fashion_name}}&category={{category.category_name}}">{{category.category_name}}</a></li>
                             {% endfor %}
                             
                           

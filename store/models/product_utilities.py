@@ -16,9 +16,10 @@ class Category(models.Model):
     fashion = models.ForeignKey(Fashion,on_delete=models.CASCADE,related_name="categories")
 
     def __str__(self):
-        return self.category_name
+        return f"{self.fashion.fashion_name}>> {self.category_name}"
     class Meta:
         unique_together = ['category_name','fashion']
+    
 
 
 
