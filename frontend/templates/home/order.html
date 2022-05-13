@@ -1,17 +1,42 @@
 {% extends 'base/layout.html' %}
 {% load static %}
 {% load cart_filter %}
+{% load order_filter %}
 {% block main_content %}
     <div class="container my-4 p-3">
         
         <div class="row p-3 justify-content-center d-flex">
+            <div class="card col-lg-10 p-2 mb-2 d-flex">
+                <form action="" class="row">
+                    
+                    <div class="col-lg-4">
+                        <select class="form-select" name="order_status" aria-label="Default select example">
+                            
+                            <option value="P" {{request|select_order_status:"P"}}>pending</option>
+                            <option value="A" {{request|select_order_status:"A"}}>approve</option>
+                            <option value="C" {{request|select_order_status:"C"}}>cancel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <input type="date" name="order_date" value="{{order_date}}" class="form-control" placeholder="choose order date">
+                        
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-outline-secondary btn-md">filter</button>
+                    </div>
+                    <h6 class="col-lg-2 text-center p-2 text-secondary">
+                        {{orders.count}} orders found
+                    </h6>
+                </form>
+            </div>
             {% for order in orders %}
                 <div class="col-lg-10 card p-3 mb-3">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
                     <!-- order id and order date  -->
                     <div>
                         <span class="d-block">Order Id: {{order.orderId}} {{order|order_status}}</span>
-                        <span class="text-muted">Date : {{order.order_date}}</span>
+                        <span class="text-muted">Date and Time : {{order.order_date}} {{order.order_time}} </span>
                     </div>
                     <span>Payment Status :{% if order.is_paid %}
                         <span class="badge bg-success"> paid</span>
@@ -21,7 +46,11 @@
                     {% endif %}</span>
                     
                         
-                        <button class="btn btn-outline-danger btn-sm mx-2">cancel order</button>
+                          
+                        
+                        {% if order|check_cancel_order %}
+                          <a href="{% url 'cancel_order' order.orderId %}" class="btn btn-sm btn-outline-danger">cancel order</a>
+                        {% endif %}
                     
                 </div>
                 <div class="card-body row">

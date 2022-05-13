@@ -27,7 +27,8 @@ class Order(models.Model):
     lastName = models.CharField(max_length=100)
     contact_no = models.CharField(max_length=15)
     payment_way = models.CharField(max_length=15,choices=PaymentChoices.choices,default=PaymentChoices.CASH)
-    order_date = models.DateTimeField(auto_now_add=True)
+    order_date = models.DateField(auto_now_add=True)
+    order_time = models.TimeField(auto_now_add=True)
     valid_duration = models.IntegerField(default=15)
     status = models.CharField(max_length=15,choices=OrderStatusChoices.choices,default=OrderStatusChoices.PENDING)
     discount = models.IntegerField(default=0)
@@ -36,6 +37,9 @@ class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="orders")
     def __str__(self):
         return f"{self.firstName} {self.lastName} {self.orderId}"
+
+    class Meta:
+        ordering = ['-id']
 
     
     @classmethod

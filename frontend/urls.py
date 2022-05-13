@@ -3,7 +3,7 @@ from django.urls import path
 
 from frontend.views.cart import cartView
 from frontend.views.checkout import CheckoutView
-from frontend.views.order import OrderView
+from frontend.views.order import OrderView,cancelOrder
 from .views.home import *
 from .views.user_auth import *
 from .views.products import *
@@ -20,4 +20,5 @@ urlpatterns = [
     path("cart/",cartView,name="cart"),
     path("checkout/",CheckoutView.as_view(),name="checkout"),
     path("order/",OrderView.as_view(),name="order"),
+    path("order_cancel/<str:order_id>/",cancelOrder,name="cancel_order"),
 ]

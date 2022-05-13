@@ -2,7 +2,7 @@ from cgitb import html
 from itertools import product
 from django import template
 from store.models import ProductSize
-from django.utils.safestring import mark_safe
+
 
 register = template.Library()
 
@@ -52,15 +52,3 @@ def total_paid(order):
 
 
     
-@register.filter(name="order_status")
-def order_status(order):
-    status = order.get_status_display()
-    
-    if status == "approve":
-        bc = "success"
-    elif status=="cancel":
-        bc = "danger"
-    else:
-        bc = "warning"
-
-    return mark_safe(f'<span class="badge bg-{bc}">{status}</span>')
