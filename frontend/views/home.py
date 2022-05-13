@@ -8,7 +8,7 @@ from django.http import JsonResponse
 def index(request):
     
     fashions = Fashion.objects.all()
-    products = Product.objects.all()
+    products = Product.objects.filter(is_available=True)
 
     context = {
         'fashions':fashions,
@@ -34,7 +34,7 @@ def product_detail(request,product_title):
 
 
 def product_size_stock(request):
-    print("get request")
+    
     if request.method == 'GET':
         product_size_id = request.GET['product_size']
         product_size = ProductSize.objects.filter(id=product_size_id).first()

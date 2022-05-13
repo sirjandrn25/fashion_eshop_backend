@@ -24,11 +24,11 @@ class ProductView(View):
             if fashion_obj and category:
                 category_obj = Category.objects.filter(fashion=fashion_obj,category_name=category).first()
                 if category_obj:
-                    products = list(Product.objects.filter(category=category_obj))
+                    products = list(Product.objects.filter(category=category_obj,is_available=True))
             else:
                 products = []
                 for category in fashion_obj.categories.all():
-                    products.extend(list(Product.objects.filter(category=category)))
+                    products.extend(list(Product.objects.filter(category=category,is_available=True)))
 
             brands = list(set(product.brand for product in products))
             
@@ -41,7 +41,7 @@ class ProductView(View):
 
 
         else:
-            products = list(Product.objects.all())
+            products = list(Product.objects.filter(is_available=True))
             brands = Brand.objects.all()
 
 
