@@ -14,7 +14,7 @@ class Fashion(models.Model):
 class Category(models.Model):
     category_name = models.CharField(max_length=120)
     fashion = models.ForeignKey(Fashion,on_delete=models.CASCADE,related_name="categories")
-
+    
     def __str__(self):
         return f"{self.fashion.fashion_name}>> {self.category_name}"
     class Meta:
